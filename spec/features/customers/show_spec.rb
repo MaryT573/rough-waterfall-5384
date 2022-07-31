@@ -14,9 +14,9 @@ RSpec.describe "customer show" do
       item4 = Item.create(name: "spinach", price: 2)
 
       custitem1 = CustomerItem.create(customer: customer1, item: item1)
-      custitem1 = CustomerItem.create(customer: customer1, item: item2)
-      custitem1 = CustomerItem.create(customer: customer1, item: item3)
-      custitem1 = CustomerItem.create(customer: customer2, item: item4)
+      custitem2 = CustomerItem.create(customer: customer1, item: item2)
+      custitem3 = CustomerItem.create(customer: customer1, item: item3)
+      custitem4 = CustomerItem.create(customer: customer2, item: item4)
 
       visit "/customers/#{customer1.id}"
       expect(current_path).to eq("/customers/#{customer1.id}")
@@ -44,12 +44,12 @@ RSpec.describe "customer show" do
       item3 = Item.create(name: "chicken", price: 6)
 
       custitem1 = CustomerItem.create(customer: customer1, item: item1)
-      custitem1 = CustomerItem.create(customer: customer1, item: item2)
-      custitem1 = CustomerItem.create(customer: customer1, item: item3)
+      custitem2 = CustomerItem.create(customer: customer1, item: item2)
+      custitem3 = CustomerItem.create(customer: customer1, item: item3)
 
       visit "/customers/#{customer1.id}"
       expect(current_path).to eq("/customers/#{customer1.id}")
-      
+
       within "#total-price" do
         expect(page).to have_content(10)
       end
