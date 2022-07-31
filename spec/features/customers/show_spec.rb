@@ -25,7 +25,7 @@ RSpec.describe "customer show" do
 
       expect(page).to have_content(customer1.name)
       expect(page).to have_content(super1.name)
-      
+
       within "#customer-item" do
         expect(page).to have_content(item1.name)
         expect(page).to have_content(item2.name)
@@ -35,7 +35,24 @@ RSpec.describe "customer show" do
     end
 
     it 'can display total price of items' do
+      super1 = Supermarket.create(name: 'Publix', location: 'Beaufort')
 
+      customer1 = super1.customers.create(name: "John")
+
+      item1 = Item.create(name: "toothpaste", price: 3)
+      item2 = Item.create(name: "apple", price: 1)
+      item3 = Item.create(name: "chicken", price: 6)
+
+      custitem1 = CustomerItem.create(customer: customer1, item: item1)
+      custitem1 = CustomerItem.create(customer: customer1, item: item2)
+      custitem1 = CustomerItem.create(customer: customer1, item: item3)
+
+      visit "/customers/#{customer1.id}"
+      expect(current_path).to eq("/customers/#{customer1.id}")
+      
+      within "#total-price" do
+        expect(page).to have_content(10)
+      end
     end
   end
 end
